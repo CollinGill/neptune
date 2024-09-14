@@ -125,54 +125,70 @@ public class Bitboard {
         }
     }
 
+    public String generateFEN() {
+        StringBuilder fen = new StringBuilder();
+
+        for (long pos = 0; pos < this.SQUARES; pos++) {
+
+            if ((pos + 1) % 8 == 0) {
+                fen.append("/");
+            }
+        }
+        fen.setLength(fen.length() - 1);
+        fen.append(" ");
+
+        return fen.toString();
+    }
+
+
     public void print() {
-        for (long pos = 0L; pos < SQUARES; pos++) {
+        for (long pos = 0L; pos < this.SQUARES; pos++) {
             if (pos % 8 == 0) {
                 System.out.println();
             }
-            this.print_square(pos);
+            this.printSquare(pos);
         }
     }
 
     /* Private methods */
-    private void print_square(long pos) {
-        if (this.bit_set(pos, this.queens)) {
-            if (this.bit_set(pos, this.white)) {
+    private void printSquare(long pos) {
+        if (this.bitSet(pos, this.queens)) {
+            if (this.bitSet(pos, this.white)) {
                 System.out.print("♕");
             } else {
                 System.out.print("♛");
             }
 
-        } else if (this.bit_set(pos, this.kings)) {
-            if (this.bit_set(pos, this.white)) {
+        } else if (this.bitSet(pos, this.kings)) {
+            if (this.bitSet(pos, this.white)) {
                 System.out.print("♔");
             } else {
                 System.out.print("♚");
             }
 
-        } else if (this.bit_set(pos, this.rooks)) {
-            if (this.bit_set(pos, this.white)) {
+        } else if (this.bitSet(pos, this.rooks)) {
+            if (this.bitSet(pos, this.white)) {
                 System.out.print("♖");
             } else {
                 System.out.print("♜");
             }
 
-        } else if (this.bit_set(pos, this.bishops)) {
-            if (this.bit_set(pos, this.white)) {
+        } else if (this.bitSet(pos, this.bishops)) {
+            if (this.bitSet(pos, this.white)) {
                 System.out.print("♗");
             } else {
                 System.out.print("♝");
             }
 
-        } else if (this.bit_set(pos, this.knights)) {
-            if (this.bit_set(pos, this.white)) {
+        } else if (this.bitSet(pos, this.knights)) {
+            if (this.bitSet(pos, this.white)) {
                 System.out.print("♘");
             } else {
                 System.out.print("♞");
             }
 
-        } else if (this.bit_set(pos, this.pawns)) {
-            if (this.bit_set(pos, this.white)) {
+        } else if (this.bitSet(pos, this.pawns)) {
+            if (this.bitSet(pos, this.white)) {
                 System.out.print("♙");
             } else {
                 System.out.print("♟");
@@ -182,7 +198,7 @@ public class Bitboard {
             System.out.print(".");
         }
     }
-    private boolean bit_set(long bit_pos, long board) {
+    private boolean bitSet(long bit_pos, long board) {
         return ((board >> bit_pos) & 1L) == 1;
     }
 }
